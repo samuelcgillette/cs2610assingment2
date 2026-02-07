@@ -32,7 +32,7 @@ export function staticFileHanderFactory(next) {
     if (request.uri.includes('.css')) {
       console.log('a static has been requested')
       const cstemp = readFileSync(`static${request.uri}`, 'utf-8');
-      return new Response(200, 'OK', cstemp)
+      return new Response(200, 'OK', cstemp, 'text/css');
     }
     else {
       return next(request);
