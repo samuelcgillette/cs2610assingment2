@@ -1,4 +1,7 @@
 import { Response } from "./response.js";
+import { readFileSync } from 'fs';
+
+
 // next is a middleware... or something with the same signature
 export function loggingMiddlewareFactory(next) {
   return function (request) {
@@ -22,15 +25,22 @@ export function JSONParsingMiddlewareFactory(next) {
   }
 }
 
-export function authenticationMiddlewareFactory(next) {
-  return function (request) {
-    if (!request.headers["Authorization"] && request.uri == "/profile") {
-      return new Response(401, "Unauthorized", "<h1>You can't do that action!</h1>")
-    }
-    return next(request);
 
+
+export function staticFileHanderFactory(next) {
+  return function (request) {
+    if (request.uri.includes('.css')) {
+      console.log('a static has been requested')
+      const cstemp = readFileSync(`static${request.uri}`, 'utf-8');
+      return new Response(200, 'OK', cstemp)
+    }
+    else {
+      return next(request);
+    }
   }
 }
+
+
 
 
 

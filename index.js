@@ -1,15 +1,17 @@
 import net from 'net';
 import { router } from "./router.js";
 import { Request } from "./request.js";
-import { loggingMiddlewareFactory, authenticationMiddlewareFactory } from './middleware.js';
+import { loggingMiddlewareFactory, staticFileHanderFactory} from './middleware.js';
 
 const server = net.createServer((socket) => {
   console.log("A connection was made")
   socket.on('data', (data) => {
-    const request = new Request(data.toString("utf-8"));
 
-    let routerWithMiddleware = authenticationMiddlewareFactory(router);
-    routerWithMiddleware = loggingMiddlewareFactory(routerWithMiddleware)
+    const request = new Request(data.toString("utf-8"));
+    
+
+    let routerWithMiddleware = loggingMiddlewareFactory(router);
+    routerWithMiddleware= staticFileHanderFactory(routerWithMiddleware)
     const response = routerWithMiddleware(request);
     socket.write(response.toString());
   });
