@@ -38,4 +38,14 @@ export function tv(request) {
   )
 }
 
+export function films(request) {
+  return new Response(
+    301,
+    "Redirect",
+    "",
+    "text/html",
+    "/movies"
+  )
+}
+
 

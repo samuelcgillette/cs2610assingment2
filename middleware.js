@@ -29,7 +29,7 @@ export function JSONParsingMiddlewareFactory(next) {
 
 export function staticFileHanderFactory(next) {
   return function (request) {
-    if (request.uri.includes('.css')) {
+    if (request.uri.endsWith('.css')) {
       console.log('a static has been requested')
       const cstemp = readFileSync(`static${request.uri}`, 'utf-8');
       return new Response(200, 'OK', cstemp, 'text/css');

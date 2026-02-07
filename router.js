@@ -1,5 +1,5 @@
 import { Response } from "./response.js";
-import { index, movies, seasons, tv } from "./endpoints.js";
+import { index, movies, seasons, tv, films } from "./endpoints.js";
 
 export function router(request) {
   if (request.uri === "/" || request.uri === "/home") {
@@ -10,7 +10,11 @@ export function router(request) {
     return seasons(request);
   } else if (request.uri === "/tv") {
     return tv(request);
-  } else {
+  }
+  else if (request.uri === "/fimls"){
+    return films(request)
+  }
+  else {
     return new Response(
       404,
       "NOT FOUND",
