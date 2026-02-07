@@ -34,6 +34,11 @@ export function staticFileHanderFactory(next) {
       const cstemp = readFileSync(`static${request.uri}`, 'utf-8');
       return new Response(200, 'OK', cstemp, 'text/css');
     }
+    else if (request.uri.endsWith('.js')) {
+      console.log('a static has been requested')
+      const jstemp = readFileSync(`static${request.uri}`, 'utf-8');
+      return new Response(200, 'OK', jstemp, 'application/javascript');
+    }
     else {
       return next(request);
     }

@@ -1,0 +1,1 @@
+console.log('home.js has been loaded and requested correctly')

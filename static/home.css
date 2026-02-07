@@ -1,6 +1,8 @@
-h1{
-    background-color: blue;
+body {
+    background-color: #e3f2fd;
+    font-family: Arial, sans-serif;
 }
-body{
-    background-color: green;
+
+h1 {
+    margin: 0 0 1rem;
 }
