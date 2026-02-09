@@ -2,17 +2,19 @@ import net from 'net';
 import { router } from "./router.js";
 import { Request } from "./request.js";
 import { loggingMiddlewareFactory, staticFileHanderFactory} from './middleware.js';
+import dotenv from "dotenv";
+dotenv.config();
 
 const server = net.createServer((socket) => {
   console.log("A connection was made")
-  socket.on('data', (data) => {
+  socket.on('data', async (data) => {
 
     const request = new Request(data.toString("utf-8"));
     
 
     let routerWithMiddleware = loggingMiddlewareFactory(router);
     routerWithMiddleware= staticFileHanderFactory(routerWithMiddleware)
-    const response = routerWithMiddleware(request);
+    const response = await routerWithMiddleware(request);
     socket.write(response.toString());
   });
 

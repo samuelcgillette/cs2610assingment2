@@ -1,18 +1,18 @@
 import { Response } from "./response.js";
 import { index, movies, seasons, tv, films } from "./endpoints.js";
 
-export function router(request) {
+export async function router(request) {
   if (request.uri === "/" || request.uri === "/home") {
-    return index(request);
+    return await index(request);
   } else if (request.uri === "/movies") {
-    return movies(request);
+    return await movies(request);
   } else if (request.uri === "/seasons") {
-    return seasons(request);
+    return await seasons(request);
   } else if (request.uri === "/tv") {
-    return tv(request);
+    return await tv(request);
   }
-  else if (request.uri === "/fimls"){
-    return films(request)
+  else if (request.uri === "/films"){
+    return await films(request)
   }
   else {
     return new Response(
