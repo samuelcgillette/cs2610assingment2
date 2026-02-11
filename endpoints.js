@@ -26,7 +26,7 @@ export async function movies(request) {
   );
   try {
     await client.connect();
-    const movies = await client.query("SELECT * FROM movie;"); //do I need to organize these by alphabetical order, or are they already ordered by ID
+    const movies = await client.query("SELECT * FROM movie ORDER BY title;");
     const listItems = movies.rows.map((movie) => {
       return `
       <li>
@@ -59,7 +59,7 @@ export async function seasons(request) {
   );
   try {
     await client.connect();
-    const seasons = await client.query("SELECT * FROM season;");
+    const seasons = await client.query("SELECT * FROM season ORDER BY title;");
     const listItems = seasons.rows.map((season) => {
       return `
       <li>
@@ -91,7 +91,7 @@ export async function tv(request) {
   );
   try {
     await client.connect();
-    const tvShows = await client.query("SELECT * FROM tv_show;");
+    const tvShows = await client.query("SELECT * FROM tv_show ORDER BY title;");
     const listItems = tvShows.rows.map((tvShow) => {
       return `
       <li>
