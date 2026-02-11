@@ -6,7 +6,6 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const server = net.createServer((socket) => {
-  console.log("A connection was made")
   socket.on('data', async (data) => {
 
     const request = new Request(data.toString("utf-8"));
@@ -28,4 +27,3 @@ server.listen("3000", "0.0.0.0", () => {
   console.log('Server listening on port 3000');
 })
 
-// /users/1
