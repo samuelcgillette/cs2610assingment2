@@ -15,16 +15,6 @@ export const loggingMiddlewareFactory = (next) => async (request) => {
   return response;
 }
 
-export function JSONParsingMiddlewareFactory(next) {
-  return async function (request) {
-    if (request.headers["Content-Type"] == "application/json") {
-      request.parsedBody = JSON.parse(request.body);
-    }
-    return await next(request);
-  }
-}
-
-
 
 export function staticFileHanderFactory(next) {
   return async function (request) {

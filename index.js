@@ -11,8 +11,8 @@ const server = net.createServer((socket) => {
     const request = new Request(data.toString("utf-8"));
     
 
-    let routerWithMiddleware = loggingMiddlewareFactory(router);
-    routerWithMiddleware= staticFileHanderFactory(routerWithMiddleware)
+    let routerWithMiddleware = staticFileHanderFactory(router);
+    routerWithMiddleware= loggingMiddlewareFactory(routerWithMiddleware)
     const response = await routerWithMiddleware(request);
     socket.write(response.toString());
   });
