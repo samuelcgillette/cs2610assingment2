@@ -1,14 +1,17 @@
-from flask import Flask, jsonify
-from random import randint
+from flask import Flask, jsonify, request
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
-@app.route('/run-script', methods=['GET'])
+@app.route('/run-script', methods=['POST'])
 def my_script():
-    random_number = randint(1, 100)
-    result = jsonify({"status": "success", "data": "Python script executed!", "randomNumber": random_number})
-    result.headers.add("Access-Control-Allow-Origin", "*")
-    return result
+    data = request.get_json()
+    if data['number']:
+        result = jsonify({"number": int(data['number']) * 2})
+        return result
+    else:
+        return jsonify({"error": "No number provided"}), 400
 
 if __name__ == '__main__':
     print("Starting Flask server on http://localhost:5000")

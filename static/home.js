@@ -1,13 +1,19 @@
 console.log('home.js has been loaded and requested correctly')
-const button = document.getElementById('run-script');
-const randomNumberDiv = document.getElementById('random-number');
+const inputNumber = document.getElementById('input-number');
+const display = document.getElementById('display-number');
 
-button.addEventListener('click', async () => {
+inputNumber.addEventListener('input', async () => {
+    const data = { number: inputNumber.value };
     try {
-        const response = await fetch('http://localhost:5000/run-script');
-        const data = await response.json();
-        console.log(data); 
-        randomNumberDiv.textContent = `Random Number from Python: ${data.randomNumber}`;
+        const response = await fetch('http://localhost:5000/run-script', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+        const result = await response.json();
+        display.textContent = `From Python: ${result.number}`;
     } catch (error) {
         console.error("Error calling Python API:", error);
     }
