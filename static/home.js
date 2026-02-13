@@ -5,21 +5,17 @@ const preview = document.getElementById('preview');
 
 button.addEventListener('click', async () => {
 
-    let img = URL.createObjectURL(fileInput.files[0]);
-    console.log(fileInput.files[0])
-    console.log(img)
-    let data = {image:img}
+    let img = fileInput.files[0]
+    const formData = new FormData();
+    formData.append('image', img);
     try {
         const response = await fetch('http://144.39.117.57:5000/run-script', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
+            body: formData
         });
-        const result = await response.json();
+        const result = await response.blob();
         console.log("Response from Python API:", result);
-        preview.src = result.received_data;
+        preview.src = URL.createObjectURL(result);
 
     } catch (error) {
         console.error("Error calling Python API:", error);
