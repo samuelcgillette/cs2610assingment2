@@ -1,9 +1,14 @@
 console.log('home.js has been loaded and requested correctly')
-const inputNumber = document.getElementById('input-number');
-const display = document.getElementById('display-number');
+const fileInput = document.getElementById('fileInput');
+const button = document.getElementById('uploadButton');
+const preview = document.getElementById('preview');
 
-inputNumber.addEventListener('input', async () => {
-    const data = { number: inputNumber.value };
+button.addEventListener('click', async () => {
+
+    let img = URL.createObjectURL(fileInput.files[0]);
+    console.log(fileInput.files[0])
+    console.log(img)
+    let data = {image:img}
     try {
         const response = await fetch('http://144.39.117.57:5000/run-script', {
             method: 'POST',
@@ -13,8 +18,11 @@ inputNumber.addEventListener('input', async () => {
             body: JSON.stringify(data)
         });
         const result = await response.json();
-        display.textContent = `From Python: ${result.number}`;
+        console.log("Response from Python API:", result);
+        preview.src = result.received_data;
+
     } catch (error) {
         console.error("Error calling Python API:", error);
     }
-});
+})
+
