@@ -5,7 +5,7 @@ const display = document.getElementById('display-number');
 inputNumber.addEventListener('input', async () => {
     const data = { number: inputNumber.value };
     try {
-        const response = await fetch('http://localhost:5000/run-script', {
+        const response = await fetch('http://144.39.117.57:5000/run-script', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
